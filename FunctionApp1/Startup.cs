@@ -1,14 +1,11 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Models;
 using Repositories;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+[assembly: FunctionsStartup(typeof(FunctionApp1.Startup))]
 namespace FunctionApp1
 {
     public class Startup : FunctionsStartup
@@ -19,7 +16,8 @@ namespace FunctionApp1
 
             builder.Services.AddSingleton<DapperContext>();
 
-            builder.Services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         }
 

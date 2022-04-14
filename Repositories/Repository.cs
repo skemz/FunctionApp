@@ -4,20 +4,44 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models;
 
 namespace Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly DapperContext _context;
+        private Type type = typeof(TEntity);
         public Repository(DapperContext context)
         {
             _context = context;
         }
-        public TEntity Add(TEntity entity)
+        public void Add(TEntity entity)
         {
-            string sqlQuery = "SELECT * FROM " + entity.GetType().ToString() + "WHERE id = \"toto\"";
-            return new TEntity();
+            var properties = type.GetProperties();
+            string idName = "";
+            string? idValue = "";
+            foreach (var property in properties)
+            {
+                var customAttributes = property.GetCustomAttributes(false).ToList();
+                if ( customAttributes.Count > 0 )
+                {
+                    foreach (var attribute in customAttributes)
+                    {
+                        if(attribute.GetType() == typeof(IdAttribute))
+                        {
+                            idName = property.Name;
+                            idValue = (string?)entity.GetType().GetProperty(idName).GetValue(entity);
+                            break;
+                        }
+                    }
+                }
+            }
+            string sqlQuery = $"SELECT * FROM {type.Name} WHERE { idName } = { idValue }";
+
+            Console.WriteLine(sqlQuery);
+
+
             /*using (var connection = _context.CreateConnection())
             {
                 connection
