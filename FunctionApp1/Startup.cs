@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Models;
 using Repositories;
+using System.Data;
 using System.IO;
 
 [assembly: FunctionsStartup(typeof(FunctionApp1.Startup))]
@@ -15,7 +16,6 @@ namespace FunctionApp1
             var config = builder.GetContext().Configuration;
 
             builder.Services.AddSingleton<DapperContext>();
-
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 

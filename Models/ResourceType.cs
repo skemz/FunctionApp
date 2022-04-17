@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    [System.AttributeUsage(AttributeTargets.Property)]
-    public class IdAttribute : System.Attribute
+    public class ResourceType
     {
+        public string ResourceTypeId { get; set; }
+        public string ResourceTypeName { get; set; }
     }
 }

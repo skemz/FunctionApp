@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using Dapper;
 
 namespace Repositories
 {
@@ -20,7 +21,7 @@ namespace Repositories
         {
             var properties = type.GetProperties();
             string idName = "";
-            string? idValue = "";
+            string idValue = "";
             foreach (var property in properties)
             {
                 var customAttributes = property.GetCustomAttributes(false).ToList();
@@ -31,14 +32,17 @@ namespace Repositories
                         if(attribute.GetType() == typeof(IdAttribute))
                         {
                             idName = property.Name;
-                            idValue = (string?)entity.GetType().GetProperty(idName).GetValue(entity);
+                            idValue = (string)entity.GetType().GetProperty(idName).GetValue(entity);
                             break;
                         }
                     }
                 }
             }
-            string sqlQuery = $"SELECT * FROM {type.Name} WHERE { idName } = { idValue }";
+            string sqlQuery = $"SELECT * FROM { type.Name } WHERE { idName } = { idValue }";
 
+            var sqlConnection = _context.CreateConnection();
+            var resourceGroup = sqlConnection.Query<ResourceGroup>(sqlQuery).FirstOrDefault();
+            
             Console.WriteLine(sqlQuery);
 
 
