@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Models;
 using Repositories;
+using Services;
 using System.Data;
 using System.IO;
 
@@ -18,9 +19,10 @@ namespace FunctionApp1
 
             builder.Services.AddSingleton<DapperContext>();
 
-            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddSingleton<IAzureManagementFactory, AzureManagementFactory>();
+            builder.Services.AddSingleton<IRepositoryService, RepositoryService>();
 
-            builder.Services.AddSingleton(typeof(AzureCredentialsFactory));
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             builder.Services.AddOptions<AzureCredentials>().Bind(config.GetSection("AzureCredentials"));
 
