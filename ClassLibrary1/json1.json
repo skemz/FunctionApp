@@ -1,8 +1,0 @@
-"AzureSettings": {
-  "Storage": {
-  "Name": "totalimsf4storagedev",
-  "ConnectionString": "chainedeconnexionazurestorage",
-  "Key": ""cléazurestorage,
-  "Container1": "trainings",
-  "Container1": "inputs" },
-}

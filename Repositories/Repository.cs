@@ -22,22 +22,22 @@ namespace Repositories
             var properties = type.GetProperties();
             string idName = "";
             string idValue = "";
-            foreach (var property in properties)
-            {
-                var customAttributes = property.GetCustomAttributes(false).ToList();
-                if ( customAttributes.Count > 0 )
-                {
-                    foreach (var attribute in customAttributes)
-                    {
-                        if(attribute.GetType() == typeof(IdAttribute))
-                        {
-                            idName = property.Name;
-                            idValue = (string)entity.GetType().GetProperty(idName).GetValue(entity);
-                            break;
-                        }
-                    }
-                }
-            }
+            //foreach (var property in properties)
+            //{
+            //    var customAttributes = property.GetCustomAttributes(false).ToList();
+            //    if ( customAttributes.Count > 0 )
+            //    {
+            //        foreach (var attribute in customAttributes)
+            //        {
+            //            if(attribute.GetType() == typeof(IdAttribute))
+            //            {
+            //                idName = property.Name;
+            //                idValue = (string)entity.GetType().GetProperty(idName).GetValue(entity);
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
             string sqlQuery = $"SELECT * FROM { type.Name } WHERE { idName } = { idValue }";
 
             var sqlConnection = _context.CreateConnection();

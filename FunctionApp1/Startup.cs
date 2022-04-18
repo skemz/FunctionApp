@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+﻿using Factory;
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Models;
@@ -18,6 +19,10 @@ namespace FunctionApp1
             builder.Services.AddSingleton<DapperContext>();
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            builder.Services.AddSingleton(typeof(AzureCredentialsFactory));
+
+            builder.Services.AddOptions<AzureCredentials>().Bind(config.GetSection("AzureCredentials"));
 
         }
 

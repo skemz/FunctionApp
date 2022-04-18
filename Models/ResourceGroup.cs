@@ -12,6 +12,5 @@ namespace Models
 
         public Dictionary<string, string> Tags { get; set; }
 
-        public List
     }
 }
