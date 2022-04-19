@@ -4,9 +4,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.6.0" />
+    <PackageReference Include="Azure.ResourceManager" Version="1.0.0" />
+    <PackageReference Include="Azure.ResourceManager.Compute" Version="1.0.0-beta.8" />
+    <PackageReference Include="Azure.ResourceManager.Network" Version="1.0.0-beta.7" />
+    <PackageReference Include="Azure.ResourceManager.Resources" Version="1.0.0" />
     <PackageReference Include="Microsoft.Azure.Management.Fluent" Version="1.38.1" />
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager.Fluent" Version="1.38.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />

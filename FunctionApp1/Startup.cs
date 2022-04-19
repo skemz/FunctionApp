@@ -20,7 +20,8 @@ namespace FunctionApp1
             builder.Services.AddSingleton<DapperContext>();
 
             builder.Services.AddSingleton<IAzureManagementFactory, AzureManagementFactory>();
-            builder.Services.AddSingleton<IRepositoryService, RepositoryService>();
+            builder.Services.AddSingleton<ISubscriptionService, SubscriptionService>();
+            builder.Services.AddSingleton<IResourceGroupService, ResourceGroupService>();
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Management.Fluent;
+﻿using Azure.ResourceManager;
+using Microsoft.Azure.Management.Fluent;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace Factory
 {
     public interface IAzureManagementFactory
     {
-        IAzure getAzureCredentials();
+        ArmClient getAzureClient();
     }
 }

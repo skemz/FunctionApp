@@ -1,7 +1,10 @@
-﻿using Microsoft.Azure.Management.Fluent;
+﻿using Azure.Identity;
+using Azure.ResourceManager;
+using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Extensions.Options;
 using Models;
+using System.Linq;
 
 namespace Factory
 {
@@ -14,7 +17,7 @@ namespace Factory
             _azureCredentials = options.Value;
         }
 
-        public IAzure getAzureCredentials()
+        public ArmClient getAzureClient()
         {
             var azureCredentials = new AzureCredentials()
             {
@@ -24,16 +27,10 @@ namespace Factory
                 SubscriptionId = Environment.GetEnvironmentVariable("SubscriptionId") ?? _azureCredentials.SubscriptionId
             };
 
+            //var environementCredentials = new EnvironmentCredential(new TokenCredentialOptions());
+            var clientSecretCredentials = new ClientSecretCredential(azureCredentials.TenantId,azureCredentials.ClientId,azureCredentials.ClientSecret);
+            return new ArmClient(clientSecretCredentials);
 
-            var azureCredential = SdkContext.AzureCredentialsFactory.FromServicePrincipal(
-                                    azureCredentials.ClientId, 
-                                    azureCredentials.ClientSecret, 
-                                    azureCredentials.TenantId, 
-                                    AzureEnvironment.AzureGlobalCloud);
-            return Azure
-                 .Configure()
-                 .Authenticate(azureCredential)
-                 .WithSubscription(azureCredentials.SubscriptionId);
         }
     }
 }

@@ -8,11 +8,12 @@ namespace Models
 {
     public class Subscription
     {
-        public string SubscriptionId { get; set; }
-        public string SubscriptionName { get; set; }
+        public string? SubscriptionId { get; set; }
+        public string? SubscriptionName { get; set; }
 
-        public Dictionary<string, string> Tags { get; set; }
+        public IDictionary<string, string>? Tags { get; set; }
+        public int Toto { get; set; }
 
-        public List<ResourceGroup> resourceGroups { get; set; }
+        public IList<ResourceGroup>? ResourceGroups { get; set; }
     }
 }
